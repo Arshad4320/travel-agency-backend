@@ -1,18 +1,12 @@
-import mongoose from "mongoose";
-import app from "./app.js";
+import app from './app'
+import config from './config/index'
+import connectDB from './config/db.config'
 
-const PORT = process.env.PORT || 5000;
-const MONGO_URI =
-  process.env.MONGO_URI || "mongodb://127.0.0.1:27017/mern-backend";
-
-mongoose
-  .connect(MONGO_URI)
-  .then(() => {
-    console.log("✅ MongoDB connected");
-    app.listen(PORT, () => {
-      console.log(`🚀 Server running on http://localhost:${PORT}`);
-    });
+const startServer = async () => {
+  await connectDB()
+  app.listen(config.port, () => {
+    console.log('Travel agency Server is Running On Port', config.port)
   })
-  .catch((err) => {
-    console.error("❌ DB Connection Failed:", err);
-  });
+}
+
+startServer()
