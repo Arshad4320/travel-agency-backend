@@ -15,16 +15,25 @@ const createAirplane = async (req: Request, res: Response) => {
 }
 const findAirplane = async (req: Request, res: Response) => {
   try {
-    const result = await AirplaneServices.findAirplane()
+    const filters = req.query
+    const result = await AirplaneServices.findAirplane(filters)
+
     res.json({
       success: true,
-      message: 'Airplane retrived',
-      data: result,
+      message: 'Airplanes retrieved successfully',
+      data: result.data,
+      meta: result.meta || null,
     })
   } catch (err) {
     console.log(err)
+    res.status(500).json({
+      success: false,
+      message: 'Something went wrong',
+      error: err instanceof Error ? err.message : err,
+    })
   }
 }
+
 const findByIdAirplane = async (req: Request, res: Response) => {
   try {
     const result = await AirplaneServices.findByIdAirplane(req.params.id)
@@ -39,7 +48,10 @@ const findByIdAirplane = async (req: Request, res: Response) => {
 }
 const updateAirplane = async (req: Request, res: Response) => {
   try {
-    const result = await AirplaneServices.updateAirplane(req.params.id)
+    const result = await AirplaneServices.updateAirplane(
+      req.params.id,
+      req.body,
+    )
     res.json({
       success: true,
       message: 'transport update successfully',

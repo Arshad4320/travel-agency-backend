@@ -1,14 +1,16 @@
 export interface IAirplane {
-  name: string // কোম্পানির নাম
-  from: string // যাত্রা শুরুর স্থান
-  to: string // গন্তব্য
-  departureTime: string // ISO datetime
-  arrivalTime: string // ISO datetime
+  flightNumber: string
+  providerName: string
+  planeImage?: string
+  airlineName: string
+  from: string
+  to: string
+  departureTime: string
+  arrivalTime: string
   durationMinutes?: number
-  price: number // মোট ভাড়া
-  serviceClass?: string // Economy, AC, Sleeper...
+  price: number
   seatsAvailable?: number
-  amenities?: string[] // ["wifi", "ac", "meal"]
-  baggageLimitKg?: number // optional baggage info
-  notes?: string // extra তথ্য
+  amenities?: string[]
+  baggageLimitKg?: number
+  handLuggageKg?: number
 }
