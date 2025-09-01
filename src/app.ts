@@ -12,6 +12,6 @@ app.get('/', (req: Request, res: Response) => {
     .status(200)
     .send({ success: true, message: 'Travel agency Server Is Running' })
 })
-// app.use('/api/v1', router)
+app.use('/api/v1', router)
 
 export default app
