@@ -6,7 +6,7 @@ const router = express.Router()
 router.post('/create', AirplaneController.createAirplane)
 router.get('/', AirplaneController.findAirplane)
 router.get('/:id', AirplaneController.findByIdAirplane)
-router.patch('/edit', AirplaneController.updateAirplane)
-router.delete('/delete', AirplaneController.deleteAirplane)
+router.patch('/edit/:id', AirplaneController.updateAirplane)
+router.delete('/delete/:id', AirplaneController.deleteAirplane)
 
 export const AirplaneRoutes = router
