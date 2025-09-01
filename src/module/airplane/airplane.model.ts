@@ -1,14 +1,9 @@
 import { model, Schema } from 'mongoose'
-import { ITransport } from './transport.interface'
+import { IAirplane } from './airplane.interface'
 
-const TransportSchema = new Schema<ITransport>(
+const AirplaneSchema = new Schema<IAirplane>(
   {
-    type: {
-      type: String,
-      enum: ['bus', 'train', 'flight', 'ferry', 'car'],
-      required: true,
-    },
-    provider: {
+    name: {
       type: String,
       required: true,
     },
@@ -59,4 +54,4 @@ const TransportSchema = new Schema<ITransport>(
   },
 )
 
-export const TransportModel = model('TransportModel', TransportSchema)
+export const AirplaneModel = model('AirplaneModel', AirplaneSchema)
