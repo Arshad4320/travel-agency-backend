@@ -1,4 +1,4 @@
-export interface IAirplane {
+export interface ITransport {
   flightNumber: string
   providerName: string
   planeImage?: string

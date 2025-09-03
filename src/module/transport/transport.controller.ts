@@ -1,9 +1,9 @@
 import { Request, Response } from 'express'
-import { AirplaneServices } from './airplane.services'
+import { TransportServices } from './transport.services'
 
-const createAirplane = async (req: Request, res: Response) => {
+const createTransport = async (req: Request, res: Response) => {
   try {
-    const result = await AirplaneServices.createAirplane(req.body)
+    const result = await TransportServices.createTransport(req.body)
     res.json({
       success: true,
       message: 'Airplane created successfully',
@@ -13,14 +13,14 @@ const createAirplane = async (req: Request, res: Response) => {
     console.log(err)
   }
 }
-const findAirplane = async (req: Request, res: Response) => {
+const findTransport = async (req: Request, res: Response) => {
   try {
     const filters = req.query
-    const result = await AirplaneServices.findAirplane(filters)
+    const result = await TransportServices.findTransport(filters)
 
     res.json({
       success: true,
-      message: 'Airplanes retrieved successfully',
+      message: 'Transports retrieved successfully',
       data: result.data,
       meta: result.meta || null,
     })
@@ -34,21 +34,21 @@ const findAirplane = async (req: Request, res: Response) => {
   }
 }
 
-const findByIdAirplane = async (req: Request, res: Response) => {
+const findByIdTransport = async (req: Request, res: Response) => {
   try {
-    const result = await AirplaneServices.findByIdAirplane(req.params.id)
+    const result = await TransportServices.findByIdTransport(req.params.id)
     res.json({
       success: true,
-      message: 'single Airplane retrived',
+      message: 'single Transport retrived',
       data: result,
     })
   } catch (err) {
     console.log(err)
   }
 }
-const updateAirplane = async (req: Request, res: Response) => {
+const updateTransport = async (req: Request, res: Response) => {
   try {
-    const result = await AirplaneServices.updateAirplane(
+    const result = await TransportServices.updateTransport(
       req.params.id,
       req.body,
     )
@@ -61,9 +61,9 @@ const updateAirplane = async (req: Request, res: Response) => {
     console.log(err)
   }
 }
-const deleteAirplane = async (req: Request, res: Response) => {
+const deleteTransport = async (req: Request, res: Response) => {
   try {
-    const result = await AirplaneServices.deleteAirplane(req.params.id)
+    const result = await TransportServices.deleteTransport(req.params.id)
     res.json({
       success: true,
       message: 'Transport deleted successfully',
@@ -74,10 +74,10 @@ const deleteAirplane = async (req: Request, res: Response) => {
   }
 }
 
-export const AirplaneController = {
-  createAirplane,
-  findAirplane,
-  findByIdAirplane,
-  updateAirplane,
-  deleteAirplane,
+export const TransportController = {
+  createTransport,
+  findTransport,
+  findByIdTransport,
+  updateTransport,
+  deleteTransport,
 }

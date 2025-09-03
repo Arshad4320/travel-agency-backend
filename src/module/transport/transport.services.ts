@@ -1,31 +1,31 @@
-import { IAirplane } from './airplane.interface'
-import { AirplaneModel } from './airplane.model'
+import { TransportModel } from './transport.model'
+import { ITransport } from './transport.interface'
 
-const createAirplane = async (payload: IAirplane) => {
+const createTransport = async (payload: ITransport) => {
   try {
-    const result = await AirplaneModel.create(payload)
+    const result = await TransportModel.create(payload)
     return result
   } catch (err) {
     console.log(err)
   }
 }
-// const findAirplane = async () => {
+// const findTransport = async () => {
 //   try {
-//     const result = await AirplaneModel.find()
+//     const result = await TransportModel.find()
 //     return result
 //   } catch (err) {
 //     console.log(err)
 //   }
 // }
-const findByIdAirplane = async (id: string) => {
+const findByIdTransport = async (id: string) => {
   try {
-    const result = await AirplaneModel.findById(id)
+    const result = await TransportModel.findById(id)
     return result
   } catch (err) {
     console.log(err)
   }
 }
-const findAirplane = async (filters: any = {}) => {
+const findTransport = async (filters: any = {}) => {
   try {
     const {
       search,
@@ -62,12 +62,12 @@ const findAirplane = async (filters: any = {}) => {
     // 📄 Pagination
     const skip = (Number(page) - 1) * Number(limit)
 
-    const data = await AirplaneModel.find(query)
+    const data = await TransportModel.find(query)
       .skip(skip)
       .limit(Number(limit))
       .sort({ departureTime: 1 }) // earliest flight first
 
-    const total = await AirplaneModel.countDocuments(query)
+    const total = await TransportModel.countDocuments(query)
 
     return {
       data,
@@ -84,9 +84,9 @@ const findAirplane = async (filters: any = {}) => {
   }
 }
 
-const updateAirplane = async (id: string, payload: IAirplane) => {
+const updateTransport = async (id: string, payload: ITransport) => {
   try {
-    const result = await AirplaneModel.findByIdAndUpdate(id, payload, {
+    const result = await TransportModel.findByIdAndUpdate(id, payload, {
       new: true,
     })
     return result
@@ -94,18 +94,18 @@ const updateAirplane = async (id: string, payload: IAirplane) => {
     console.log(err)
   }
 }
-const deleteAirplane = async (id: string) => {
+const deleteTransport = async (id: string) => {
   try {
-    const result = await AirplaneModel.findByIdAndDelete(id, { new: true })
+    const result = await TransportModel.findByIdAndDelete(id, { new: true })
   } catch (err) {
     console.log(err)
   }
 }
 
-export const AirplaneServices = {
-  createAirplane,
-  findAirplane,
-  findByIdAirplane,
-  updateAirplane,
-  deleteAirplane,
+export const TransportServices = {
+  createTransport,
+  findTransport,
+  findByIdTransport,
+  updateTransport,
+  deleteTransport,
 }

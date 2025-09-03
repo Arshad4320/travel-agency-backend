@@ -1,7 +1,7 @@
 import { model, Schema } from 'mongoose'
-import { IAirplane } from './airplane.interface'
+import { ITransport } from './transport.interface'
 
-const AirplaneSchema = new Schema<IAirplane>(
+const TransportSchema = new Schema<ITransport>(
   {
     flightNumber: { type: String, required: true },
     providerName: { type: String, required: true },
@@ -23,4 +23,4 @@ const AirplaneSchema = new Schema<IAirplane>(
   },
 )
 
-export const AirplaneModel = model<IAirplane>('Airplane', AirplaneSchema)
+export const TransportModel = model<ITransport>('Transport', TransportSchema)

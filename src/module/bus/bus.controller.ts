@@ -14,8 +14,14 @@ const createBus = async (req: Request, res: Response) => {
   }
 }
 
-const findBus = async () => {
+const findBus = async (req: Request, res: Response) => {
   try {
+    const result = await BusServices.findBus(req.query)
+    res.json({
+      success: true,
+      message: 'All buses is retrived',
+      data: result,
+    })
   } catch (err) {
     console.log(err)
   }
