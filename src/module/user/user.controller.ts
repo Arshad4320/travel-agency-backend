@@ -37,6 +37,19 @@ const findByUserId = async (req: Request, res: Response) => {
     console.log(err)
   }
 }
+const loginUser = async (req: Request, res: Response) => {
+  try {
+    const { email, password } = req.body
+    const result = await UserServices.loginUser(email, password)
+    res.json({
+      success: true,
+      message: 'user logged successfully',
+      data: result,
+    })
+  } catch (err) {
+    console.log(err)
+  }
+}
 const updateUser = async (req: Request, res: Response) => {
   try {
     const result = await UserServices.updateUser(req.params.id, req.body)
@@ -55,4 +68,5 @@ export const UserController = {
   findByUserId,
   findUsers,
   updateUser,
+  loginUser,
 }
