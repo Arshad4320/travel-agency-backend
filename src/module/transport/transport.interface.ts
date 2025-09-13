@@ -1,12 +1,19 @@
+export enum TransportType {
+  Airplane = "Airplane",
+  Bus = "Bus",
+  Ship = "Ship",
+  Train = "Train",
+}
+
 export interface ITransport {
-  flightNumber: string
+  transportNumber: string
   providerName: string
-  planeImage?: string
-  airlineName: string
+  transportImage?: string
+  transportName: TransportType
   from: string
   to: string
-  departureTime: string
-  arrivalTime: string
+  departureTime: Date
+  arrivalTime: Date
   durationMinutes?: number
   price: number
   seatsAvailable?: number
