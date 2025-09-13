@@ -3,14 +3,20 @@ import { TransportServices } from './transport.services'
 
 const createTransport = async (req: Request, res: Response) => {
   try {
+    if (req.file) {
+      req.body.transportImage = req.file.path
+    }
+
     const result = await TransportServices.createTransport(req.body)
+
     res.json({
       success: true,
-      message: 'Airplane created successfully',
+      message: 'Transport created successfully',
       data: result,
     })
   } catch (err) {
     console.log(err)
+    res.status(500).json({ success: false, message: 'Something went wrong' })
   }
 }
 const findTransport = async (req: Request, res: Response) => {
