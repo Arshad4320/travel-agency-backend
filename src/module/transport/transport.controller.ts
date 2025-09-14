@@ -19,6 +19,7 @@ const createTransport = async (req: Request, res: Response) => {
     res.status(500).json({ success: false, message: 'Something went wrong' })
   }
 }
+
 const findTransport = async (req: Request, res: Response) => {
   try {
     const filters = req.query

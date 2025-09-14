@@ -35,11 +35,13 @@ const findTransport = async (filters: any = {}) => {
       maxPrice,
       page = 1,
       limit = 10,
+      date,
+      transportType,
     } = filters
 
     const query: any = {}
 
-    // 🔍 Search multiple fields
+    // General search (name, from, to)
     if (search) {
       query.$or = [
         { name: { $regex: search, $options: 'i' } },
@@ -48,24 +50,42 @@ const findTransport = async (filters: any = {}) => {
       ]
     }
 
-    // ✈️ Filter exact from/to
-    if (from) query.from = from
-    if (to) query.to = to
+    // ✅ from field: first 3 letters match
+    if (from && from.length >= 3) {
+      query.from = { $regex: '^' + from.slice(0, 3), $options: 'i' }
+    }
 
-    // 💰 Price range
+    // ✅ to field: first 3 letters match
+    if (to && to.length >= 3) {
+      query.to = { $regex: '^' + to.slice(0, 3), $options: 'i' }
+    }
+
+    if (transportType) {
+      query.transportType = transportType
+    }
+
+    if (date) {
+      const start = new Date(date)
+      start.setHours(0, 0, 0, 0)
+
+      const end = new Date(date)
+      end.setHours(23, 59, 59, 999)
+
+      query.departureTime = { $gte: start, $lte: end }
+    }
+
     if (minPrice || maxPrice) {
       query.price = {}
       if (minPrice) query.price.$gte = Number(minPrice)
       if (maxPrice) query.price.$lte = Number(maxPrice)
     }
 
-    // 📄 Pagination
     const skip = (Number(page) - 1) * Number(limit)
 
     const data = await TransportModel.find(query)
       .skip(skip)
       .limit(Number(limit))
-      .sort({ departureTime: 1 }) // earliest flight first
+      .sort({ departureTime: 1 })
 
     const total = await TransportModel.countDocuments(query)
 
