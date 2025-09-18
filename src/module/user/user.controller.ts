@@ -1,9 +1,15 @@
 import { Request, Response } from 'express'
 import { UserServices } from './user.services'
 
-const createUser = async (res: Response, req: Request) => {
+const createUser = async (req: Request, res: Response) => {
   try {
     const result = await UserServices.createUser(req.body)
+    if (!result) {
+      res.json({
+        success: false,
+        message: 'user create field',
+      })
+    }
     res.json({
       success: true,
       message: 'user created successfully',
@@ -13,9 +19,15 @@ const createUser = async (res: Response, req: Request) => {
     console.log(err)
   }
 }
-const findUsers = async (res: Response, req: Request) => {
+const findUsers = async (req: Request, res: Response) => {
   try {
     const result = await UserServices.findUsers()
+    if (!result) {
+      res.json({
+        success: false,
+        message: 'user not found',
+      })
+    }
     res.json({
       success: true,
       message: 'users retrieved successfully',
@@ -28,6 +40,12 @@ const findUsers = async (res: Response, req: Request) => {
 const findByUserId = async (req: Request, res: Response) => {
   try {
     const result = await UserServices.findByUserId(req.params.id)
+    if (!result) {
+      res.json({
+        success: false,
+        message: 'user not found',
+      })
+    }
     res.json({
       success: true,
       message: 'user retrieved successfully',
@@ -41,7 +59,13 @@ const loginUser = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body
     const result = await UserServices.loginUser(email, password)
-    res.json({
+    if (!result) {
+      res.json({
+        success: false,
+        message: 'user not found',
+      })
+    }
+    res.status(200).json({
       success: true,
       message: 'user logged successfully',
       data: result,
@@ -50,9 +74,16 @@ const loginUser = async (req: Request, res: Response) => {
     console.log(err)
   }
 }
+
 const updateUser = async (req: Request, res: Response) => {
   try {
     const result = await UserServices.updateUser(req.params.id, req.body)
+    if (!result) {
+      res.json({
+        success: false,
+        message: 'user update field',
+      })
+    }
     res.json({
       success: true,
       message: 'user update successfully',
